@@ -194,10 +194,12 @@ a.days-scroll:hover {
                   <h4 class="card-date"><?=date('l, j F Y', strtotime($event->date_start))?></h4>
                   <h4 class="card-time"><?=$event->time_start?> - <?=$event->time_end?></h4>
                   <p class="card-description">
+                    @if(false)
                     @if(strlen($event->description) > 100)
                       <?=substr($event->description, 0, 100)?>... <a href="{{ url('events/' . $event->slug) }}">More</a>
                     @else
                       <?=$event->description?>
+                    @endif
                     @endif
                   </p>
                   <p class="card-details">

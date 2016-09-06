@@ -9,6 +9,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Event;
 use Validator;
+use Eloquent;
+use Illuminate\Support\Collection;
 
 class EventController extends Controller
 {
@@ -29,6 +31,7 @@ class EventController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function index(Request $request) {
+    /* DISABLE DB EVENTS 
     // Validate
     $validator = Validator::make($request->all(), [
       'date_from'     =>  'sometimes|date',
@@ -69,6 +72,34 @@ class EventController extends Controller
 
     // Do the query
     $events = Event::whereRaw($condition)->get();
+    */
+
+    $events_json = json_decode(file_get_contents('events.json'), 1);
+
+    Eloquent::unguard();
+    $events = new Collection;
+    foreach ($events_json as $key => $events_json) {
+      $event = new Event($events_json);
+      $events->push($event);
+    }
+    Eloquent::reguard();
+
+    if($request->has('date_from')) {
+      $events = $events->filter(function($event) use ($request) {
+        return strtotime($event->date_start) >= strtotime($request->input('date_from'));
+      });
+    }
+    if($request->has('date_to')) {
+      $events = $events->filter(function($event) use ($request) {
+        return strtotime($event->date_start) <= strtotime($request->input('date_to'));
+      });
+    }
+    if($request->has('date_on')) {
+      $events = $events->filter(function($event) use ($request) {
+        return strtotime($event->date_start) == strtotime($request->input('date_on'));
+      });
+    }
+
 
     return JsonHelper::success($events);
   }

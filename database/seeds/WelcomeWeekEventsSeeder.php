@@ -341,6 +341,7 @@ class WelcomeWeekEventsSeeder extends Seeder
       "time_end"          =>  "14:30",
       "title"             =>  "Talking 'bout my education",
       "location_name"     =>  "Room 2, Students' Union",
+      "cover"             =>  "talkin_bout_my_education.jpg",
       "location_address"  =>  "Students' Union",
     ]);
     factory(App\Event::class, 'welcome_week')->create([
@@ -508,6 +509,14 @@ class WelcomeWeekEventsSeeder extends Seeder
       "location_address"  =>  "Students' Union",
       "cover"             =>  "Living.At.Home.1600x900.jpg"
     ]);
-    
+    factory(App\Event::class, 'welcome_week')->create([
+      "date_start"        =>  "2016-09-21",
+      "time_start"        =>  "12:00",
+      "time_end"          =>  "13:30",
+      "title"             =>  "Volunteering Showcase",
+      "location_name"     =>  "Council Chambers, 2nd floor, Students' Union",
+      "location_address"  =>  "Students' Union",
+      "description"       =>  "Activities:<ul><li>Take part in micro-volunteering that will support our work in the local community</li><li>Sign-up to one-off volunteering opportunities with children and adults</li><li>Have a go at quizzes and get to know the issues we tackle in Manchester</li></ul>"
+    ]);
   }
 }
