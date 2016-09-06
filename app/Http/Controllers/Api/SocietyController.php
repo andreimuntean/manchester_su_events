@@ -17,7 +17,9 @@ class SocietyController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function index() {
-  
+    // we don't need no database
+    return JsonHelper::success([]);
+
     // Do the query
     $societies = Society::all();
 
@@ -31,6 +33,8 @@ class SocietyController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function show($id) {
+    // we don't need no database
+    return JsonHelper::success(null);
 
     $societies = Society::find($id);
 
